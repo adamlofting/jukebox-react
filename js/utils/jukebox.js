@@ -1,40 +1,40 @@
-import Actions from '../actions/actions';
+import Actions from '../actions/actions'
 
 class Jukebox {
   constructor(conn) {
-    this.conn = conn || {};
+    this.conn = conn || {}
   }
 
   websocketServerURI() {
     //return('ws://localhost:8081');
-    return('ws://jukebox.local:8081');
+    return('ws://jukebox.local:8081')
   }
 
   openConnection() {
     if (!this.connectionReady()) {
-      this.conn = new WebSocket(this.websocketServerURI());
-      this.conn.onopen = this.handleOpen;
-      this.conn.onerror = this.handleError;
-      this.conn.onclose = this.handleClose;
-      this.conn.onmessage = this.handleMessage;
+      this.conn = new WebSocket(this.websocketServerURI())
+      this.conn.onopen = this.handleOpen
+      this.conn.onerror = this.handleError
+      this.conn.onclose = this.handleClose
+      this.conn.onmessage = this.handleMessage
     }
     return this.conn;
   }
 
   connectionReady() {
-    return !(this.conn === undefined || this.conn.readyState === undefined || this.conn.readyState > 1);
+    return !(this.conn === undefined || this.conn.readyState === undefined || this.conn.readyState > 1)
   }
 
   handleOpen(message) {
-    Actions.connectionOpen();
+    Actions.connectionOpen()
   }
 
   handleError(message) {
-    Actions.connectionError(message);
+    Actions.connectionError(message)
   }
 
   handleClose(message) {
-    Actions.connectionClosed(message);
+    Actions.connectionClosed(message)
   }
 
   handleMessage(message) {
@@ -45,17 +45,20 @@ class Jukebox {
     //   //   playing: (data["state"] == 'play')
     //   // })
     // }
+    if ("state" in data) {
+      Actions.updatePlayState(data['state'])
+    }
 
     if ("track" in data) {
-      Actions.updateTrack(data['track']);
+      Actions.updateTrack(data['track'])
     }
 
     if ("rating" in data) {
-      Actions.updateRating(data['rating']);
+      Actions.updateRating(data['rating'])
     }
 
     if ("volume" in data) {
-      Actions.updateVolume(data['volume']);
+      Actions.updateVolume(data['volume'])
     }
 
     // if ("playlist" in data) {
@@ -65,18 +68,18 @@ class Jukebox {
     // }
 
     if ("time" in data) {
-      Actions.updateTime(data['time']);
+      Actions.updateTime(data['time'])
     }
 
   }
 
   buildMessage(command, value, userID){
-    var payload = {};
-    payload[command] = (value || '');
+    var payload = {}
+    payload[command] = (value || '')
     if(userID) {
       payload['user_id'] = parseInt(userID)
     }
-    return payload;
+    return payload
   }
 
   sendMessage(payload){
@@ -118,4 +121,4 @@ class Jukebox {
   // }
 }
 
-module.exports = Jukebox;
+module.exports = Jukebox

@@ -11,6 +11,7 @@ var defaultData = Immutable.fromJS({
   rating: null,
   time: null,
   volume: null,
+  play_state: null,
   connection: {
     open: false,
     error_message: null,
@@ -57,6 +58,10 @@ class Store extends EventEmitter {
 
   [Constants.UPDATE_VOLUME](action) {
     this.data = this.data.set('volume', action.volume)
+  }
+
+  [Constants.UPDATE_PLAYSTATE](action) {
+    this.data = this.data.set('play_state', action.playState)
   }
 
   dispatcherCallback(action) {

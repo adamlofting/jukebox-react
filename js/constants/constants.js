@@ -5,5 +5,6 @@ export default {
   UPDATE_USER_ID: 'updateUserId',
   UPDATE_TIME: 'updateTime',
   UPDATE_RATING: 'updateRating',
-  UPDATE_VOLUME: 'updateVolume'
+  UPDATE_VOLUME: 'updateVolume',
+  UPDATE_PLAYSTATE: 'updatePlayState'
 }

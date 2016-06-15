@@ -41,9 +41,9 @@ class UI extends React.Component {
     this.state.store.removeChangeListener(this._onChange.bind(this));
   }
 
-  sidePanelHTML(track, userId, time, volume) {
+  sidePanelHTML(track, userId, time, volume, play_state) {
     return(
-      <SidePanel track={track} userId={userId} time={time} volume={volume} />
+      <SidePanel track={track} userId={userId} time={time} volume={volume} play_state={play_state} />
     )
   }
 
@@ -73,13 +73,14 @@ class UI extends React.Component {
     let time = this.state.storeData.get('time')
     let volume = this.state.storeData.get('volume')
     let connection = this.state.storeData.get('connection')
+    let play_state = this.state.storeData.get('play_state')
     return (
       <div>
         <DebugPanel connection={ connection } />
         <label>
           User ID: <input type='text' onChange={ this.updateUserID.bind(this) } />
         </label>
-        { this.sidePanelHTML(track, userId, time, volume) }
+        { this.sidePanelHTML(track, userId, time, volume, play_state) }
       </div>
     );
   }
