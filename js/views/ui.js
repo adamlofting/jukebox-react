@@ -1,15 +1,15 @@
-import React from 'react';
-import Store from '../stores/store';
-import Actions from '../actions/actions';
-import Jukebox from './../utils/jukebox';
-import SidePanel from './subviews/side-panel';
-import DebugPanel from './subviews/debug-panel';
-import Dispatcher from './../dispatcher/dispatcher';
+import React from 'react'
+import Store from '../stores/store'
+import Actions from '../actions/actions'
+import Jukebox from './../utils/jukebox'
+import SidePanel from './subviews/side-panel'
+import DebugPanel from './subviews/debug-panel'
+import Dispatcher from './../dispatcher/dispatcher'
 import Immutable from 'immutable'
 
 class UI extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     let store = Store
     this.state = {
       jukebox: new Jukebox(),
@@ -41,9 +41,9 @@ class UI extends React.Component {
     this.state.store.removeChangeListener(this._onChange.bind(this));
   }
 
-  sidePanelHTML(track, userId, time) {
+  sidePanelHTML(track, userId, time, volume) {
     return(
-      <SidePanel track={track} userId={userId} time={time} />
+      <SidePanel track={track} userId={userId} time={time} volume={volume} />
     )
   }
 
@@ -67,21 +67,22 @@ class UI extends React.Component {
   }
 
   render() {
-    let track = this.state.storeData.get('track');
+    let track = this.state.storeData.get('track')
     this.applyRatingChangesToTrack(track)
-    let userId = this.state.storeData.get('user_id');
-    let time = this.state.storeData.get('time');
-    let connection = this.state.storeData.get('connection');
+    let userId = this.state.storeData.get('user_id')
+    let time = this.state.storeData.get('time')
+    let volume = this.state.storeData.get('volume')
+    let connection = this.state.storeData.get('connection')
     return (
       <div>
         <DebugPanel connection={ connection } />
         <label>
           User ID: <input type='text' onChange={ this.updateUserID.bind(this) } />
         </label>
-        { this.sidePanelHTML(track, userId, time) }
+        { this.sidePanelHTML(track, userId, time, volume) }
       </div>
     );
   }
 }
 
-export default UI;
+export default UI

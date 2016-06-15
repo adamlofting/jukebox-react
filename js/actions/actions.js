@@ -48,6 +48,13 @@ var Actions = {
       actionType: Constants.UPDATE_RATING,
       rating: rating
     });
+  },
+
+  updateVolume: (volume) => {
+    Dispatcher.dispatch({
+      actionType: Constants.UPDATE_VOLUME,
+      volume: volume
+    });
   }
 };
 

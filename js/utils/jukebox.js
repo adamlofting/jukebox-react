@@ -54,11 +54,9 @@ class Jukebox {
       Actions.updateRating(data['rating']);
     }
 
-    // if ("volume" in data) {
-    //   // self.setState({
-    //   //   volume: data["volume"]
-    //   // })
-    // }
+    if ("volume" in data) {
+      Actions.updateVolume(data['volume']);
+    }
 
     // if ("playlist" in data) {
     //   // self.setState({

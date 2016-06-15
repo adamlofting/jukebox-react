@@ -10,6 +10,7 @@ var defaultData = Immutable.fromJS({
   user_id: null,
   rating: null,
   time: null,
+  volume: null,
   connection: {
     open: false,
     error_message: null,
@@ -54,9 +55,13 @@ class Store extends EventEmitter {
     this.data = this.data.set('rating', action.rating)
   }
 
+  [Constants.UPDATE_VOLUME](action) {
+    this.data = this.data.set('volume', action.volume)
+  }
+
   dispatcherCallback(action) {
     if(this[action.actionType]) {
-      this[action.actionType].call(this, action);
+      this[action.actionType].call(this, action)
       this.emitChange();
     }
   }
